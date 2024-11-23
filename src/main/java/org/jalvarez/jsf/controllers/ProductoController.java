@@ -13,6 +13,8 @@ import java.util.List;
 @Model
 public class ProductoController {
 
+    private Producto producto;
+
     @Inject
     private ProductoService service;
 
@@ -28,5 +30,18 @@ public class ProductoController {
     public List<Producto> findAll() {
         //return Arrays.asList(new Producto("peras"), new Producto("manzanas"), new Producto("mandarinas"));
         return service.listar();
+    }
+
+    @Produces
+    @Model
+    public Producto producto(){
+        this.producto = new Producto();
+        return producto;
+    }
+
+    public String guardar() {
+        System.out.println(producto);
+        //service.guardar(producto);
+        return "index.xhtml?faces-redirect=true";
     }
 }
