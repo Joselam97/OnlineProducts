@@ -20,7 +20,7 @@
             <h:commandButton value="Crear Producto" action="form.xhtml"/>
         </h:form>
 
-        <h:outputText value="No existen productos en la base de datos!" rendered="#{empty listado}" />
+        <h:outputText value="No existen productos en la base de datos!" rendered="#{empty listado}"/>
 
         <h:dataTable value="#{listado}" var="prod" rendered="#{not empty listado}">
             <h:column>
@@ -55,34 +55,36 @@
                 <f:facet name="header">
                     <h:outputText value="Fecha"/>
                 </f:facet>
-                <h:outputText value="#{prod.fechaRegistro}"/>
+                <h:outputText value="#{prod.fechaRegistro}">
+                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                </h:outputText>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="editar" />
+                    <h:outputText value="editar"/>
                 </f:facet>
                 <h:form id="editarForm">
-                    <h:commandLink value="editar" action="#{productoController.editar(prod.id)}" />
+                    <h:commandLink value="editar" action="#{productoController.editar(prod.id)}"/>
                 </h:form>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="editar2" />
+                    <h:outputText value="editar2"/>
                 </f:facet>
-                    <h:link value="editar2" outcome="form">
-                        <f:param name="id" value="#{prod.id}" />
-                    </h:link>
+                <h:link value="editar2" outcome="form">
+                    <f:param name="id" value="#{prod.id}"/>
+                </h:link>
             </h:column>
 
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="eliminar" />
+                    <h:outputText value="eliminar"/>
                 </f:facet>
                 <h:form id="eliminarForm">
                     <h:commandLink value="eliminar" action="#{productoController.eliminar(prod.id)}"
-                    onclick="return confirm('Esta seguro que desea eliminar?')"/>
+                                   onclick="return confirm('Esta seguro que desea eliminar?')"/>
                 </h:form>
             </h:column>
 
