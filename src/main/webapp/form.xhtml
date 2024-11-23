@@ -10,9 +10,16 @@
 </h:head>
 
 <h:body>
-    <h1>
+    <f:metadata>
+        <f:viewParam name="id" value="#{productoController.id}" />
+    </f:metadata>
+
+    <h:panelGrid border="1">
+    <f:facet name="header">
         <h:outputText value="Formulario Producto"/>
-    </h1>
+    </f:facet>
+
+    <h:link outcome="index" value="volver" />
 
     <h:form>
         <h:panelGrid columns="2">
@@ -29,6 +36,7 @@
             <h:inputHidden value="#{producto.id}" />
         </h:panelGrid>
     </h:form>
+    </h:panelGrid>
 
 </h:body>
 </html>
