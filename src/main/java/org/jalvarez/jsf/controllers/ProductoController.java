@@ -5,6 +5,7 @@ import jakarta.enterprise.inject.Model;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.jalvarez.jsf.entities.Categoria;
 import org.jalvarez.jsf.entities.Producto;
 import org.jalvarez.jsf.services.ProductoService;
 
@@ -44,6 +45,12 @@ public class ProductoController {
             });
         }
         return producto;
+    }
+
+    @Produces
+    @Model
+    public List<Categoria> categorias() {
+        return service.listarCategorias();
     }
 
     public String editar(Long id) {

@@ -2,6 +2,7 @@ package org.jalvarez.jsf.services;
 
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import org.jalvarez.jsf.entities.Categoria;
 import org.jalvarez.jsf.entities.Producto;
 import org.jalvarez.jsf.repositories.CrudRepository;
 
@@ -13,6 +14,9 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Inject
     private CrudRepository<Producto> repository;
+
+    @Inject
+    private CrudRepository<Categoria> categoriaRepository;
 
     @Override
     public List<Producto> listar() {
@@ -32,5 +36,15 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void eliminar(Long id) {
         repository.eliminar(id);
+    }
+
+    @Override
+    public List<Categoria> listarCategorias() {
+        return categoriaRepository.listar();
+    }
+
+    @Override
+    public Optional<Categoria> porIdCategorias(Long id) {
+        return Optional.ofNullable(categoriaRepository.porId(id));
     }
 }

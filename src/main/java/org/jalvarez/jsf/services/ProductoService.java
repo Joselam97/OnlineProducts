@@ -1,6 +1,7 @@
 package org.jalvarez.jsf.services;
 
 import jakarta.ejb.Local;
+import org.jalvarez.jsf.entities.Categoria;
 import org.jalvarez.jsf.entities.Producto;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface ProductoService {
 
     void guardar(Producto producto);
     void eliminar(Long id);
+
+    List<Categoria> listarCategorias();
+    Optional<Categoria> porIdCategorias(Long id);
 }

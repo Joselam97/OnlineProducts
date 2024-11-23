@@ -19,6 +19,9 @@ public class Producto {
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categoria categoria;
+
     public Producto() {
     }
 
@@ -70,6 +73,14 @@ public class Producto {
     //@PrePersist
     public void prePersist() {
         fechaRegistro = LocalDate.now();
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
