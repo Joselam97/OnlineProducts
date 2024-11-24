@@ -1,6 +1,10 @@
 package org.jalvarez.jsf.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -12,13 +16,22 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String nombre;
+
+    @NotNull
+    @Min(5)
     private Integer precio;
+
+    @NotEmpty
+    @Size(min = 3, max = 10)
     private String sku;
 
+    @NotNull
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
 
