@@ -62,6 +62,13 @@
 
             <h:column>
                 <f:facet name="header">
+                    <h:outputText value="Categoria"/>
+                </f:facet>
+                <h:outputText value="#{prod.categoria.nombre}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
                     <h:outputText value="editar"/>
                 </f:facet>
                 <h:form id="editarForm">

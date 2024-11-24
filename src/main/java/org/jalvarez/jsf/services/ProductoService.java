@@ -17,5 +17,5 @@ public interface ProductoService {
     void eliminar(Long id);
 
     List<Categoria> listarCategorias();
-    Optional<Categoria> porIdCategorias(Long id);
+    Optional<Categoria> porIdCategoria(Long id);
 }

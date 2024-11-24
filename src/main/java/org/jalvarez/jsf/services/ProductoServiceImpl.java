@@ -44,7 +44,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Optional<Categoria> porIdCategorias(Long id) {
+    public Optional<Categoria> porIdCategoria(Long id) {
         return Optional.ofNullable(categoriaRepository.porId(id));
     }
 }
