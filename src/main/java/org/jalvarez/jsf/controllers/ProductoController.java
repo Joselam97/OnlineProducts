@@ -1,12 +1,11 @@
 package org.jalvarez.jsf.controllers;
 
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.inject.Model;
 import jakarta.enterprise.inject.Produces;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import org.jalvarez.jsf.entities.Categoria;
 import org.jalvarez.jsf.entities.Producto;
 import org.jalvarez.jsf.qualifiers.CustomFacesContext;
@@ -32,6 +31,13 @@ public class ProductoController {
     @Inject
     private ResourceBundle bundle;
 
+    private List<Producto> listado;
+
+    @PostConstruct
+    public void init() {
+        this.listado = service.listar();
+    }
+
     @Produces
     @Model
     public String titulo(){
@@ -39,13 +45,12 @@ public class ProductoController {
         return bundle.getString("producto.texto.titulo");
     }
 
-    @Produces
-    @RequestScoped
-    @Named("listado")
-    public List<Producto> findAll() {
-        //return Arrays.asList(new Producto("peras"), new Producto("manzanas"), new Producto("mandarinas"));
-        return service.listar();
-    }
+//    @Produces
+//    @RequestScoped
+//    @Named("listado")
+//    public List<Producto> findAll() {
+//        return service.listar();
+//    }
 
     @Produces
     @Model
@@ -72,20 +77,20 @@ public class ProductoController {
 
     public String guardar() {
         System.out.println(producto);
-        service.guardar(producto);
 
         if (producto.getId() != null && producto.getId() > 0) {
             facesContext.addMessage(null, new FacesMessage(String.format(bundle.getString("producto.mensaje.editar"), producto.getNombre())));
         } else {
             facesContext.addMessage(null, new FacesMessage(String.format(bundle.getString("producto.mensaje.crear"), producto.getNombre())));
         }
-        return "index.xhtml?faces-redirect=true";
+        service.guardar(producto);
+        return "index.xhtml";
     }
 
-    public String eliminar(Producto producto) {
+    public void eliminar(Producto producto) {
         service.eliminar(producto.getId());
         facesContext.addMessage(null, new FacesMessage(String.format(bundle.getString("producto.mensaje.eliminar"), producto.getNombre())));
-        return "index.xhtml?faces-redirect=true";
+        listado = service.listar();
     }
 
     public Long getId() {
@@ -94,5 +99,13 @@ public class ProductoController {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Producto> getListado() {
+        return listado;
+    }
+
+    public void setListado(List<Producto> listado) {
+        this.listado = listado;
     }
 }

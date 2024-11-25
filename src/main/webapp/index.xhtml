@@ -1,101 +1,79 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/main.xhtml">
 
     <ui:define name="content">
 
-        <h:panelGrid border="1" class="table">
-            <f:facet name="header">
+        <p:card>
+            <f:facet name="title">
                 <h:outputText value="#{titulo}"/>
             </f:facet>
 
+            <p:divider/>
             <h:form id="crearForm">
-                <h:commandButton value="#{msg['navbar.texto.crear']}" action="form.xhtml" class="btn btn-primary my-2"/>
+                <p:commandButton value="#{msg['navbar.texto.crear']}" action="form.xhtml" class="p-my-2"/>
             </h:form>
 
-            <h:outputText value="#{msg['producto.texto.noexiste']}" rendered="#{empty listado}"
+            <h:outputText value="#{msg['producto.texto.noexiste']}"
+                          rendered="#{empty productoController.listado}"
                           class="alert alert-warning"/>
 
-            <h:dataTable value="#{listado}" var="prod" rendered="#{not empty listado}"
-                         class="table table-hover table-striped">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.id']}"/>
-                    </f:facet>
+            <p:dataTable value="#{productoController.listado}" var="prod"
+                         rendered="#{not empty productoController.listado}" style="max-width:65%;"
+                         id="tabla">
+                <p:column headerText="#{msg['producto.id']}">
                     <h:outputText value="#{prod.id}"/>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.nombre']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.nombre']}">
                     <h:outputText value="#{prod.nombre}"/>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.sku']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.sku']}">
                     <h:outputText value="#{prod.sku}"/>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.precio']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.precio']}">
                     <h:outputText value="#{prod.precio}"/>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.fechaRegistro']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.fechaRegistro']}">
                     <h:outputText value="#{prod.fechaRegistro}">
                         <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
                     </h:outputText>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.categoria']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.categoria']}">
                     <h:outputText value="#{prod.categoria.nombre}"/>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.boton.editar']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.boton.editar']}">
                     <h:form id="editarForm">
-                        <h:commandLink value="#{msg['producto.boton.editar']}" action="#{productoController.editar(prod.id)}"
-                                       class="btn btn-sm btn-success"/>
+                        <p:commandButton value="#{msg['producto.boton.editar']}"
+                                         action="#{productoController.editar(prod.id)}"
+                                         class="ui-button-success"/>
                     </h:form>
-                </h:column>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.boton.editar']}"/>
-                    </f:facet>
-                    <h:link value="#{msg['producto.boton.editar']}" outcome="form" class="btn btn-sm btn-info">
+                <p:column headerText="#{msg['producto.boton.editar']}">
+                    <p:linkButton value="#{msg['producto.boton.editar']}" outcome="form" class="btn btn-sm btn-info">
                         <f:param name="id" value="#{prod.id}"/>
-                    </h:link>
-                </h:column>
+                    </p:linkButton>
+                </p:column>
 
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['producto.boton.eliminar']}"/>
-                    </f:facet>
+                <p:column headerText="#{msg['producto.boton.eliminar']}">
                     <h:form id="eliminarForm">
-                        <h:commandLink value="#{msg['producto.boton.eliminar']}" action="#{productoController.eliminar(prod)}"
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('Esta seguro que desea eliminar?')"/>
+                        <p:commandButton value="#{msg['producto.boton.eliminar']}"
+                                         action="#{productoController.eliminar(prod)}"
+                                         class="ui-button-danger"
+                                         onclick="return confirm('Esta seguro que desea eliminar?')" update="tabla"/>
                     </h:form>
-                </h:column>
+                </p:column>
 
-            </h:dataTable>
-        </h:panelGrid>
+            </p:dataTable>
+        </p:card>
     </ui:define>
 </ui:composition>
