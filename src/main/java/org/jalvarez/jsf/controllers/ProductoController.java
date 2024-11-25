@@ -3,10 +3,13 @@ package org.jalvarez.jsf.controllers;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Model;
 import jakarta.enterprise.inject.Produces;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.jalvarez.jsf.entities.Categoria;
 import org.jalvarez.jsf.entities.Producto;
+import org.jalvarez.jsf.qualifiers.CustomFacesContext;
 import org.jalvarez.jsf.services.ProductoService;
 
 import java.util.List;
@@ -20,6 +23,10 @@ public class ProductoController {
 
     @Inject
     private ProductoService service;
+
+    @Inject
+    @CustomFacesContext
+    private FacesContext facesContext;
 
     @Produces
     @Model
@@ -61,11 +68,18 @@ public class ProductoController {
     public String guardar() {
         System.out.println(producto);
         service.guardar(producto);
+
+        if (producto.getId() != null && producto.getId() > 0) {
+            facesContext.addMessage(null, new FacesMessage("Producto " + producto.getNombre() + " actualizado con exito!"));
+        } else {
+            facesContext.addMessage(null, new FacesMessage("Producto " + producto.getNombre() + " creado con exito!"));
+        }
         return "index.xhtml?faces-redirect=true";
     }
 
-    public String eliminar(Long id) {
-        service.eliminar(id);
+    public String eliminar(Producto producto) {
+        service.eliminar(producto.getId());
+        facesContext.addMessage(null, new FacesMessage("Producto " + producto.getNombre() + " eliminado con exito!"));
         return "index.xhtml?faces-redirect=true";
     }
 
