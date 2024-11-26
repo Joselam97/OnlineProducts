@@ -84,6 +84,7 @@ public class ProductoController {
             facesContext.addMessage(null, new FacesMessage(String.format(bundle.getString("producto.mensaje.crear"), producto.getNombre())));
         }
         service.guardar(producto);
+        listado = service.listar();
         return "index.xhtml";
     }
 
