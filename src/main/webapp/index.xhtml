@@ -14,7 +14,10 @@
 
             <p:divider/>
             <h:form id="crearForm">
-                <p:commandButton value="#{msg['navbar.texto.crear']}" action="form.xhtml" class="p-my-2"/>
+                <p:commandButton value="#{msg['navbar.texto.crear']}" class="p-my-2" onclick="PF('dialogForm').show()"
+                                 icon="pi pi-plus-circle">
+                    <p:resetInput target="formProducto"/>
+                </p:commandButton>
             </h:form>
 
             <h:outputText value="#{msg['producto.texto.noexiste']}"
@@ -75,14 +78,11 @@
                     <h:form id="editarForm">
                         <p:commandButton value="#{msg['producto.boton.editar']}"
                                          action="#{productoController.editar(prod.id)}"
-                                         class="ui-button-success"/>
+                                         class="ui-button-success" onclick="PF('dialogForm').show()"
+                                         icon="pi pi-save" update="formProducto">
+                            <p:resetInput target="formProducto"/>
+                        </p:commandButton>
                     </h:form>
-                </p:column>
-
-                <p:column headerText="#{msg['producto.boton.editar']}">
-                    <p:linkButton value="#{msg['producto.boton.editar']}" outcome="form" class="btn btn-sm btn-info">
-                        <f:param name="id" value="#{prod.id}"/>
-                    </p:linkButton>
                 </p:column>
 
                 <p:column headerText="#{msg['producto.boton.eliminar']}">
@@ -90,11 +90,19 @@
                         <p:commandButton value="#{msg['producto.boton.eliminar']}"
                                          action="#{productoController.eliminar(prod)}"
                                          class="ui-button-danger"
-                                         onclick="return confirm('Esta seguro que desea eliminar?')" update="tabla"/>
+                                         onclick="return confirm('Esta seguro que desea eliminar?')" update="tabla"
+                                         icon="pi pi-trash"/>
                     </h:form>
                 </p:column>
-
             </p:dataTable>
+
+            <p:dialog
+                    header="#{productoController.producto.id>0? msg['producto.boton.editar']: msg['producto.boton.crear']} #{msg['producto.texto']}"
+                    widgetVar="dialogForm" minHeight="200" minWidth="500" showEffect="fade" modal="true">
+                <p:ajax event="close" listener="#{productoController.cerrarDialogo}" update="formProducto"/>
+                <ui:include src="form.xhtml"/>
+            </p:dialog>
+
         </p:card>
     </ui:define>
 </ui:composition>
