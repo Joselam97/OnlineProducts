@@ -5,7 +5,7 @@
               xmlns:p="http://primefaces.org/ui">
 
 
-    <h:form id="formProducto">
+    <h:form id="formProducto" rendered="#{p:ifGranted('ADMIN')}">
         <div class="p-field p-grid">
             <p:outputLabel value="#{msg['producto.nombre']}" for="nombre" class="p-col-fixed"
                            style="width: 200px"/>
