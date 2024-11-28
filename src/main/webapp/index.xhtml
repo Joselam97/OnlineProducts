@@ -9,7 +9,13 @@
 
         <p:card>
             <f:facet name="title">
-                <h:outputText value="#{titulo}"/>
+                <div style="display: flex; align-items: center;">
+                    <h:graphicImage
+                            value="/resources/img/tienda-online.png"
+                            alt="products logo"
+                            style="width: 65px; height: auto; margin-right: 10px;"/>
+                    <h:outputText value="#{titulo}" style="font-size: 1.5rem; font-weight: bold;"/>
+                </div>
             </f:facet>
 
             <p:divider/>
@@ -24,7 +30,7 @@
                           rendered="#{empty productoController.listado}"
                           class="alert alert-warning"/>
 
-            <h:form>
+            <h:form rendered="#{p:ifAnyGranted('USER,ADMIN')}">
                 <div class="p-field p-grid p-my2">
                     <label for="textoBuscar" class="p-col-fixed" style="width:100px">
                         Buscar

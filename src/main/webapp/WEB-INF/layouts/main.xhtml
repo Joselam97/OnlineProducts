@@ -17,6 +17,7 @@
 
     <h:body>
         <p:card>
+
             <h:form>
                 <p:menubar>
                     <p:menuitem value="#{msg['navbar.texto.inicio']}" outcome="index" icon="pi pi-fw pi-home"/>
@@ -32,6 +33,9 @@
                         </p:selectOneMenu>
 
                     </p:menuitem>
+                    <p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" rendered="#{empty p:userPrincipal()}"/>
+                    <p:menuitem value="Logout" action="#{logoutController.logout}" icon="pi pi-fw pi-sign-out" rendered="#{not empty p:userPrincipal()}"/>
+
                 </p:menubar>
             </h:form>
             <div class="p-mb-2">
