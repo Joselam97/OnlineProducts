@@ -36,3 +36,33 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignorar directorios y archivos del sistema
+
+Thumbs.db
+.idea/
+
+*.log
+*.db
+*.ini
+*.json
+*.zip
+*.rar
+AppData/
+node_modules/
+
+out/
+
+# Ignorar carpetas específicas detectadas
+../../../*
+../../../../*
+../*
+
+# Ignorar archivos sensibles o temporales
+*.class
+*.war
+*.jar
+*.tmp
+*.swp
+*.bak
+*.old
