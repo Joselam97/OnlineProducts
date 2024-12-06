@@ -4,11 +4,14 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/main.xhtml">
+    <!-- Defines the page layout using the main template -->
 
     <ui:define name="content">
+        <!-- Login panel visible only to users who are not logged in -->
         <p:panel header="Login" rendered="#{p:ifNoneGranted('ADMIN,USER')}">
             <form action="j_security_check" method="post" id="formLogin">
 
+                <!-- Username input field -->
                 <div class="p-field p-grid">
                     <p:outputLabel value="Username" for="j_username" class="p-col-fixed"
                                    style="width: 200px"/>
@@ -17,6 +20,7 @@
                     </div>
                 </div>
 
+                <!-- Password input field -->
                 <div class="p-field p-grid">
                     <p:outputLabel value="Password" for="j_password" class="p-col-fixed"
                                    style="width: 200px"/>
@@ -25,6 +29,7 @@
                     </div>
                 </div>
 
+                <!-- Login button -->
                 <div class="p-field p-grid">
                     <div class="p-col">
                         <p:button onclick="submit()"
@@ -36,7 +41,9 @@
             </form>
         </p:panel>
 
+        <!-- Welcome panel visible only to logged-in users -->
         <p:panel header="Bienvenido, has iniciado sesion" rendered="#{p:ifAnyGranted('ADMIN,USER')}">
+            <!-- Button to navigate back to the home page -->
             <p:linkButton outcome="index" value="Volver" styleClass="p-my-2"/>
         </p:panel>
     </ui:define>

@@ -5,81 +5,102 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/main.xhtml">
 
+    <!-- Defines the content section of the template -->
     <ui:define name="content">
 
+        <!-- Card component for the page content -->
         <p:card>
+            <!-- Title section of the card -->
             <f:facet name="title">
                 <div style="display: flex; align-items: center;">
+                    <!-- Display logo image -->
                     <h:graphicImage
                             value="/resources/img/tienda-online.png"
                             alt="products logo"
                             style="width: 65px; height: auto; margin-right: 10px;"/>
+                    <!-- Display title dynamically from a bean -->
                     <h:outputText value="#{titulo}" style="font-size: 1.5rem; font-weight: bold;"/>
                 </div>
             </f:facet>
 
+            <!-- Divider line below the title -->
             <p:divider/>
+            <!-- Form for creating a new product, visible only to ADMIN users -->
             <h:form id="crearForm" rendered="#{p:ifGranted('ADMIN')}">
                 <p:commandButton value="#{msg['navbar.texto.crear']}" class="p-my-2" onclick="PF('dialogForm').show()"
                                  icon="pi pi-plus-circle">
-                    <p:resetInput target="formProducto"/>
+                    <p:resetInput target="formProducto"/> <!-- Resets the input fields -->
                 </p:commandButton>
             </h:form>
 
+            <!-- Warning message if no products are found -->
             <h:outputText value="#{msg['producto.texto.noexiste']}"
                           rendered="#{empty productoController.listado}"
                           class="alert alert-warning"/>
 
+            <!-- Search form for USER and ADMIN roles -->
             <h:form rendered="#{p:ifAnyGranted('USER,ADMIN')}">
                 <div class="p-field p-grid p-my2">
+                    <!-- Label for the search input -->
                     <label for="textoBuscar" class="p-col-fixed" style="width:100px">
                         Buscar
                     </label>
+                    <!-- Input field for searching products -->
                     <div class="p-col">
                         <p:inputText id="textoBuscar" value="#{productoController.textoBuscar}" placeholder="Buscar">
+                            <!-- Trigger search on keyup event -->
                             <p:ajax listener="#{productoController.buscar}" event="keyup" update="mostrar tabla"/>
                         </p:inputText>
                     </div>
-                    <!--ojo-->
+
+                    <!-- Display the current search term -->
                     <div class="p-col">
                         <h:outputText value="#{productoController.textoBuscar}" id="mostrar"/>
                     </div>
                 </div>
             </h:form>
 
+            <!-- Data table to display the list of products -->
             <p:dataTable value="#{productoController.listado}" var="prod"
                          rendered="#{not empty productoController.listado}" style="max-width:65%;"
                          id="tabla" rows="5"
-                         paginator="true" paginatorPosition="both"
+                         paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                          rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                <!-- Column for product ID -->
                 <p:column headerText="#{msg['producto.id']}">
                     <h:outputText value="#{prod.id}"/>
                 </p:column>
 
+                <!-- Column for product name -->
                 <p:column headerText="#{msg['producto.nombre']}">
                     <h:outputText value="#{prod.nombre}"/>
                 </p:column>
 
+                <!-- Column for SKU -->
                 <p:column headerText="#{msg['producto.sku']}">
                     <h:outputText value="#{prod.sku}"/>
                 </p:column>
 
+                <!-- Column for price -->
                 <p:column headerText="#{msg['producto.precio']}">
                     <h:outputText value="#{prod.precio}"/>
                 </p:column>
 
+                <!-- Column for registration date -->
                 <p:column headerText="#{msg['producto.fechaRegistro']}">
                     <h:outputText value="#{prod.fechaRegistro}">
                         <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
 
+                <!-- Column for product category -->
                 <p:column headerText="#{msg['producto.categoria']}">
                     <h:outputText value="#{prod.categoria.nombre}"/>
                 </p:column>
 
+                <!-- Column for edit button, visible only to ADMIN users -->
                 <p:column rendered="#{p:ifGranted('ADMIN')}" headerText="#{msg['producto.boton.editar']}">
                     <h:form id="editarForm">
                         <p:commandButton value="#{msg['producto.boton.editar']}"
@@ -91,6 +112,7 @@
                     </h:form>
                 </p:column>
 
+                <!-- Column for delete button, visible only to ADMIN users -->
                 <p:column rendered="#{p:ifGranted('ADMIN')}" headerText="#{msg['producto.boton.eliminar']}">
                     <h:form id="eliminarForm">
                         <p:commandButton value="#{msg['producto.boton.eliminar']}"
@@ -102,10 +124,13 @@
                 </p:column>
             </p:dataTable>
 
+            <!-- Dialog for creating or editing a product -->
             <p:dialog
                     rendered="#{p:ifGranted('ADMIN')}" header="#{productoController.producto.id>0? msg['producto.boton.editar']: msg['producto.boton.crear']} #{msg['producto.texto']}"
                     widgetVar="dialogForm" minHeight="200" minWidth="500" showEffect="fade" modal="true">
+                <!-- Close dialog event -->
                 <p:ajax event="close" listener="#{productoController.cerrarDialogo}" update="formProducto"/>
+                <!-- Includes the product form inside the dialog -->
                 <ui:include src="form.xhtml"/>
             </p:dialog>
 

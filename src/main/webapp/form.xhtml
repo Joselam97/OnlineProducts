@@ -5,79 +5,90 @@
               xmlns:p="http://primefaces.org/ui">
 
 
+    <!-- Form for creating or editing a product, visible only to ADMIN users -->
     <h:form id="formProducto" rendered="#{p:ifGranted('ADMIN')}">
+
+        <!-- Section for the product name input -->
         <div class="p-field p-grid">
+            <!-- Label for the name input field -->
             <p:outputLabel value="#{msg['producto.nombre']}" for="nombre" class="p-col-fixed"
                            style="width: 200px"/>
             <div class="p-col">
+                <!-- Input field for the product name -->
                 <p:inputText id="nombre" value="#{productoController.producto.nombre}" label="Nombre"/>
-                <!--<div class="p-col">-->
                 <p:message for="nombre" style="color:crimson;"/>
-                <!--</div>-->
             </div>
         </div>
 
+        <!-- Section for the product price input -->
         <div class="p-field p-grid">
+            <!-- Label for the price input field -->
             <p:outputLabel value="#{msg['producto.precio']}" for="precio" class="p-col-fixed"
                            style="width: 200px"/>
             <div class="p-col">
+                <!-- Input field for the product price -->
                 <p:inputText id="precio" value="#{productoController.producto.precio}" label="Precio"/>
-                <!--<div class="p-col">-->
                 <p:message for="precio" style="color:crimson;"/>
-                <!--</div>-->
             </div>
         </div>
 
+        <!-- Section for the product SKU input -->
         <div class="p-field p-grid">
+            <!-- Label for the SKU input field -->
             <p:outputLabel value="#{msg['producto.sku']}" for="sku" class="p-col-fixed" style="width: 200px"/>
             <div class="p-col">
+                <!-- Input field for the product SKU -->
                 <p:inputText id="sku" value="#{productoController.producto.sku}" label="Sku"/>
-                <!--<div class="p-col">-->
                 <p:message for="sku" style="color:crimson;"/>
-                <!--</div>-->
             </div>
         </div>
 
+        <!-- Section for the product registration date input -->
         <div class="p-field p-grid">
+            <!-- Label for the registration date input field -->
             <p:outputLabel value="#{msg['producto.fechaRegistro']}" for="fechaRegistro" class="p-col-fixed"
                            style="width: 200px"/>
             <div class="p-col">
+                <!-- Date picker for selecting the registration date -->
                 <p:datePicker pattern="yyyy-MM-dd" id="fechaRegistro"
                               value="#{productoController.producto.fechaRegistro}"
                               label="Fecha Registro"
                               converterMessage="Indique la fecha en formato yyyy-MM-dd">
+                    <!-- Converts and validates the date input -->
                     <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
                     <f:passThroughAttribute name="type" value="date"/>
                 </p:datePicker>
-                <!--</div>-->
-                <!--<div class="p-col">-->
                 <p:message for="fechaRegistro" style="color:crimson;"/>
             </div>
         </div>
 
+        <!-- Section for the product category selection -->
         <div class="p-field p-grid">
+            <!-- Label for the category dropdown -->
             <p:outputLabel value="#{msg['producto.categoria']}" for="categoria" class="p-col-fixed"
                            style="width: 200px"/>
             <div class="p-col">
+                <!-- Dropdown for selecting the product category -->
                 <p:selectOneMenu id="categoria" value="#{productoController.producto.categoria}">
                     <f:selectItem itemLabel="--- seleccione categoria ---" itemValue="#{null}"/>
                     <f:selectItems value="#{categorias}" var="cat" itemLabel="#{cat.nombre}"/>
+                    <!-- Converter for binding category objects -->
                     <f:converter binding="#{categoriaConverter}"/>
                 </p:selectOneMenu>
-                <!--</div>-->
-                <!--<div class="p-col">-->
                 <p:message for="categoria" style="color:crimson;"/>
-                <!--</div>-->
             </div>
         </div>
 
+        <!-- Section for the form buttons -->
         <div class="p-field p-grid">
             <div class="p-col">
+                <!-- Save or update button with dynamic label based on product ID -->
                 <p:commandButton
                         value="#{productoController.producto.id>0? msg['producto.boton.editar']: msg['producto.boton.crear']}"
                         action="#{productoController.guardar}"
                         class="ui-button-outlined ui-button-success" update="@form tabla"/>
             </div>
+            <!-- Hidden field for storing the product ID -->
             <h:inputHidden value="#{productoController.producto.id}"/>
         </div>
 
