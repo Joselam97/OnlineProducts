@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0e43499f-1a93-4e17-b7b1-aebca4e3a88f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/layouts/main.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/layouts/main.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/loginError.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/loginError.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

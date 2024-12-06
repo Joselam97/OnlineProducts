@@ -9,9 +9,11 @@
         <!-- Panel displaying an error message when login fails -->
         <p:panel header="Error en Login">
             <!-- Static message indicating login credentials are incorrect -->
-            <p:staticMessage severity="error" summary="ERROR" detail="Username o Password incorrecto"/>
+            <p:outputLabel value="El username o password ingresado es incorrecto." style="color: crimson;" />
             <!-- Link button to navigate back to the login page -->
-            <p:linkButton outcome="login" value="Login" styleClass="p-my-2"/>
+            <div>
+            <p:linkButton outcome="login" value="Login" styleClass="ui-button ui-widget ui-state-default ui-corner-all" />
+            </div>
         </p:panel>
 
 
