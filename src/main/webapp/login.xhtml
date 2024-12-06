@@ -6,6 +6,14 @@
                 template="/WEB-INF/layouts/main.xhtml">
     <!-- Defines the page layout using the main template -->
 
+    <h:head>
+        <!-- Agregar recursos necesarios para PrimeFaces -->
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="primefaces" name="primefaces.js"/>
+        <h:outputStylesheet library="primefaces" name="primefaces.css"/>
+    </h:head>
+
     <ui:define name="content">
         <!-- Login panel visible only to users who are not logged in -->
         <p:panel header="Login" rendered="#{p:ifNoneGranted('ADMIN,USER')}">
@@ -16,7 +24,7 @@
                     <p:outputLabel value="Username" for="j_username" class="p-col-fixed"
                                    style="width: 200px"/>
                     <div class="p-col">
-                        <p:inputText id="j_username"/>
+                        <p:inputText id="j_username" name="j_username"/>
                     </div>
                 </div>
 
@@ -25,7 +33,7 @@
                     <p:outputLabel value="Password" for="j_password" class="p-col-fixed"
                                    style="width: 200px"/>
                     <div class="p-col">
-                        <p:inputText type="password" id="j_password"/>
+                        <p:inputText type="password" id="j_password" name="j_password"/>
                     </div>
                 </div>
 

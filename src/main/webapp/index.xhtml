@@ -5,6 +5,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/layouts/main.xhtml">
 
+    <h:head>
+        <!-- Agregar recursos necesarios para PrimeFaces -->
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="primefaces" name="primefaces.js"/>
+        <h:outputStylesheet library="primefaces" name="primefaces.css"/>
+    </h:head>
+
     <!-- Defines the content section of the template -->
     <ui:define name="content">
 
